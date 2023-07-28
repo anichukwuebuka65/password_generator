@@ -23,28 +23,29 @@ function App() {
     let str = "";
     let index = 0;
 
-    const constraintsToUseArr = randomize(
-      Object.entries(constraints)
-        .filter((value) => value[1])
-        .map((value) => value[0])
-    );
+    const constraintsToUseArr = Object.entries(constraints)
+      .filter((value) => value[1])
+      .map((value) => value[0]);
 
-    for (let i = 0; i < pwdLength; i++) {
-      if (index > constraintsToUseArr.length - 1) index = 0;
-      const char = characters[constraintsToUseArr[index]];
-      const start = Math.floor(Math.random() * char.length);
-      str += char.slice(start, start + 1);
-      index++;
+    if (Array.isArray(constraintsToUseArr)) {
+      for (let i = 0; i < pwdLength; i++) {
+        if (index > constraintsToUseArr.length - 1) index = 0;
+        const char = characters[constraintsToUseArr[index]];
+        const start = Math.floor(Math.random() * char.length);
+        str += char.slice(start, start + 1);
+        index++;
+      }
     }
 
     return str;
   }
 
   function generatePassword() {
-    return randomize(getPwdString());
+    const pwd = randomize(getPwdString());
+    return typeof pwd === "string" ? pwd : "";
   }
 
-  function randomize(pwd: string | string[]) {
+  function randomize(pwd) {
     const sortFn = () => (Math.round(Math.random()) > 0.5 ? 1 : -1);
     if (Array.isArray(pwd)) return pwd.sort(sortFn);
     return pwd.split("").sort(sortFn).join("");
@@ -54,11 +55,8 @@ function App() {
     setPassword(generatePassword());
   }
 
-  function handleConstraints(
-    e: React.ChangeEvent<HTMLInputElement>,
-    value: string
-  ) {
-    setContraints((prev: typeof constraints) => ({
+  function handleConstraints(value) {
+    setContraints((prev) => ({
       ...prev,
       [value]: !prev[value],
     }));
@@ -104,7 +102,7 @@ function App() {
           <p>Uppercase</p>
           <input
             checked={constraints.upperCase}
-            onChange={(e) => handleConstraints(e, "upperCase")}
+            onChange={() => handleConstraints("upperCase")}
             type="checkbox"
             name="uppercase"
           ></input>
@@ -113,7 +111,7 @@ function App() {
           <p>Lowercase</p>
           <input
             checked={constraints.lowerCase}
-            onChange={(e) => handleConstraints(e, "lowerCase")}
+            onChange={() => handleConstraints("lowerCase")}
             type="checkbox"
             name="lowercase"
           ></input>
@@ -122,7 +120,7 @@ function App() {
           <p>Numbers</p>
           <input
             checked={constraints.numbers}
-            onChange={(e) => handleConstraints(e, "numbers")}
+            onChange={() => handleConstraints("numbers")}
             type="checkbox"
             name="numbers"
           ></input>
@@ -131,7 +129,7 @@ function App() {
           <p>Special characters</p>
           <input
             checked={constraints.specialCharacters}
-            onChange={(e) => handleConstraints(e, "specialCharacters")}
+            onChange={() => handleConstraints("specialCharacters")}
             type="checkbox"
             name="special characters"
           ></input>
