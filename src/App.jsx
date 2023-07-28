@@ -82,7 +82,7 @@ function App() {
           <p>weak</p>
         </div>
         <div>
-          <button className="bg-[#64cacc] font-bold mx-4 rounded-2xl py-2 px-4">
+          <button onClick={()=> copy(password)} className="bg-[#64cacc] font-bold mx-4 rounded-2xl py-2 px-4">
             copy
           </button>
         </div>
@@ -137,6 +137,10 @@ function App() {
       </div>
     </div>
   );
+
+  function copy(data){
+    navigator.clipboard.writeText(data)
+  }
 }
 
 export default App;
