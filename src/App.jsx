@@ -88,9 +88,6 @@ function App() {
           </button>
         </div>
       </div>
-      <button className="py-4 px-8 border rounded-md bg-purple-600 text-white">
-          <a  href="http://wa.me/2349165542133">Chat on whatsapp</a>
-      </button>
       <p>Password Length: {pwdLength}</p>
       <input
         className="w-full text-[#64cacc]"
