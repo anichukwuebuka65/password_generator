@@ -81,12 +81,16 @@ function App() {
           </div>
           <p>weak</p>
         </div>
+        
         <div>
           <button onClick={()=> copy(password)} className="bg-[#64cacc] font-bold mx-4 rounded-2xl py-2 px-4">
             copy
           </button>
         </div>
       </div>
+      <button className="py-4 px-8 border rounded-md bg-purple-600 text-white">
+          <a  href="http://wa.me/2349165542133">Chat on whatsapp</a>
+      </button>
       <p>Password Length: {pwdLength}</p>
       <input
         className="w-full text-[#64cacc]"
